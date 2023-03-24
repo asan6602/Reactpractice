@@ -1,50 +1,27 @@
-
 import './App.css';
+import { Planet } from './Planet';
 
 
-//component is a javascript function that returns jsx(ui)
+
 function App() {
+  const planets=  [
+    {name: "Mars", isGasPlanet: false},
+    {name: "Earth", isGasPlanet: false},
+    {name: "Jupiter", isGasPlanet: true},
+    {name: "Venus", isGasPlanet: false},
+    {name: "Neptune", isGasPlanet: true},
+    {name: "Uranus", isGasPlanet: true}
+  ];
 
-  const name = <h1>Aaron</h1>;
-  const age = <h2>20</h2>
-  const user =(
-  <div>
-    {name}
-    {age}
+  //loop through planets and only display if gasplanet
+  return <div className="App">
+   { planets.map(
+    (planet,key) => !planet.isGasPlanet && <Planet name={planet.name}/>
+  )}
+
   </div>
-  );
 
-  return (
-    <div className="App">
-      {user}
-      <UserComponent/>
-      <UserComponent1 name="Bob" age={25}/>
-    </div>
-
-  );
 }
 
-//component is a javascript function that returns jsx(ui)
-//component needs to start with a capital letter
-//components allow for reusability
-const UserComponent = () => {
-  return(
-    <div>
-      <h1>Aaron</h1>
-      <h2>20</h2>
-    </div>
-
-  ) 
-};
-
-//props are variables
-const UserComponent1 = (props) => {
-  return(
-    <div>
-      <h1>{props.name}</h1>
-      <h2>{props.age}</h2>
-    </div>
-  )
-};
 
 export default App;
