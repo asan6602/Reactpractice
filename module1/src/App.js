@@ -4,17 +4,15 @@ import './App.css';
 
 
 function App() {
-  const age= 19; 
-  const isGreen = false;
+  const names =  ["Bob","Joe","Jim"]
 
-  return (
-    <div className="App">{
-    // ternary operator, ?(if) :(else)
-    age >= 18 ? <h1>Over Age</h1> : <h1>Under Age</h1>}
-    <h1 style ={{color: isGreen ? "green": "red"}}>Color</h1>
-    
-    </div>
-  );
+  //.map can be used to iterate through an array in js
+  return <div className="App">
+    {names.map((name, key) => {
+      return <h1 key={key}>{name}</h1>
+    })}
+  </div>
+
 }
 
 export default App;
