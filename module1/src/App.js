@@ -1,18 +1,22 @@
-
 import './App.css';
+import {User} from './User.js'
 
 
 
 function App() {
-  const names =  ["Bob","Joe","Jim"]
+  const users =  [
+    {name: "Bob", age: 21},
+    {name: "Joe", age: 22},
+    {name: "Jim", age: 23},
+  ];
 
-  //.map can be used to iterate through an array in js
   return <div className="App">
-    {names.map((name, key) => {
-      return <h1 key={key}>{name}</h1>
+    {users.map((user, key) => {
+      return <User name={user.name} age={user.age}/>
     })}
   </div>
 
 }
+
 
 export default App;
