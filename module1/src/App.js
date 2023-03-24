@@ -1,19 +1,24 @@
 import './App.css';
-import {User} from './User.js'
+import { Planet } from './Planet';
 
 
 
 function App() {
-  const users =  [
-    {name: "Bob", age: 21},
-    {name: "Joe", age: 22},
-    {name: "Jim", age: 23},
+  const planets=  [
+    {name: "Mars", isGasPlanet: false},
+    {name: "Earth", isGasPlanet: false},
+    {name: "Jupiter", isGasPlanet: true},
+    {name: "Venus", isGasPlanet: false},
+    {name: "Neptune", isGasPlanet: true},
+    {name: "Uranus", isGasPlanet: true}
   ];
 
+  //loop through planets and only display if gasplanet
   return <div className="App">
-    {users.map((user, key) => {
-      return <User name={user.name} age={user.age}/>
-    })}
+   { planets.map(
+    (planet,key) => !planet.isGasPlanet && <Planet name={planet.name}/>
+  )}
+
   </div>
 
 }
