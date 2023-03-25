@@ -19,14 +19,22 @@ function App() {
     setText(event.target.value)
   }
 
+  const[showText,  setshowText] = useState(true) 
+
+  
+
   return (
     <div className="App">
       {age}
       <button onClick={increaseAge}>Increase Age</button>
-      <div></div>
+      <h1></h1>
       
       <div>{text}</div>
       <input type ="text" onChange={putText}></input>
+
+      
+      {showText === true && <h1>Hi My Name is Aaron</h1>}
+      <button onClick={() => {showText === true ? setshowText(false) : setshowText(true)}}> Show/Hide</button>
 
     </div>
 
