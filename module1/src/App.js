@@ -1,6 +1,6 @@
 import './App.css';
 import {useState} from "react";
-//import { entry } from './entry';
+import { Task } from './Task';
 
 
 
@@ -45,10 +45,7 @@ function App() {
     <div className="list">
       {toDoList.map((task) =>{
         return (
-          <div className ="task">
-            <h1>{task.id} {task.taskName}</h1>
-            <button onClick={() => deleteTask(task.id)}>X</button>
-          </div>
+          <Task taskName={task.taskName} id={task.id} deleteTask={deleteTask}/>
         );
       })}
     </div>
