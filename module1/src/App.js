@@ -1,48 +1,73 @@
 import './App.css';
 import {useState} from "react";
-//component is a javascript function that returns jsx(ui)
+import { Task } from './Task';
+
 function App() {
-  //states are variables that react knows when they are modified
-  const [age, setAge] = useState(1)
-  const increaseAge = () => {
-    setAge(age + 1)
-    
-    console.log(age)
+  const [toDoList, setList] = useState([]);
+  const[newTask, setNewTask] = useState({});
+
+  const addtoList = () => {
+    //... array composesed of everything in first plus second entry
+    const task = {
+      id: toDoList.length === 0 ? 1 : toDoList[toDoList.length -1].id + 1,
+      taskName: newTask,
+      completed: false
+    }
+    const newToDoList = [...toDoList, task]
+    setList(newToDoList)
+  };
+
+  const handleChange = (event) => {
+    setNewTask(event.target.value)
+  };
+
+  const deleteTask = (id) => {
+    const newToDoList = toDoList.filter((task) => {
+      if (task.id === id) {
+        return false
+
+      }
+      else {
+        return true
+      }
+    })
+    setList(newToDoList)
   }
-  const[text, setText] = useState("")
-  const putText = (event) => { //event is used to grab information about the input
-    setText(event.target.value)
+
+  const compeleteTask = (id) => {
+    setList(
+      toDoList.map((task) => {
+        if(task.id === id) {
+          return {...task, completed : true}
+        }
+        else {
+          return task;
+        }
+      })  
+    )
   }
-  const[showText,  setshowText] = useState(true) 
-  const[textColor,  setTextColor] = useState("black") 
 
 
-  const[count,  setCount] = useState(0) 
-
-
+  //line 48, functions can be passed as props
   return (
-    <div className="App">
-      {age}
-      <button onClick={increaseAge}>Increase Age</button>
-      <h1></h1>
-      <h1> </h1>
-
-      <div>{text}</div>
-      <input type ="text" onChange={putText}></input>
-
-
-      {showText === true && <h1 style ={{color: textColor}}>Hi My Name is Aaron</h1>}
-      <button onClick={() => {setshowText(!showText)}}>Show/Hide</button>
-      <button onClick={() => {setTextColor(textColor==="black"?"red":"black")}}>Change Color</button>
-
-      <h1> </h1>
-      <button onClick={() => {setCount(count + 1)}}>Increase</button>
-      <button onClick={() => {setCount(count - 1)}}>Decrease</button>
-      <button onClick={() => {setCount(0)}}>Set to Zero</button>
-      <h1>{count}</h1>
-
+  <div className="App">
+    <div className="addTask">
+      <input onChange={handleChange}></input>
+      <button onClick={addtoList}>Add Task</button>
+    </div>
+    <div className="list">
+      {toDoList.map((task) =>{
+        return (
+          <Task taskName={task.taskName} 
+          id={task.id} 
+          completed={task.completed} 
+          deleteTask={deleteTask}
+          completeTask={compeleteTask}/>
+        );
+      })}
     </div>
 
+  </div>
   );
 }
 export default App;
