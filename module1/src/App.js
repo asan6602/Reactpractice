@@ -1,6 +1,6 @@
 import './App.css';
 import {useState} from "react";
-import { entry } from './entry';
+//import { entry } from './entry';
 
 
 
@@ -18,6 +18,18 @@ function App() {
     setNewTask(event.target.value)
   };
 
+  const deleteTask = (taskName) => {
+    const newToDoList = toDoList.filter((task) => {
+      if (task === taskName) {
+        return false
+      }
+      else {
+        return true
+      }
+    })
+    setList(newToDoList)
+  }
+
   //loop through planets and only display if gasplanet
   return (
   <div className="App">
@@ -27,7 +39,12 @@ function App() {
     </div>
     <div className="list">
       {toDoList.map((task) =>{
-        return entry(task)
+        return (
+          <div>
+            <h1>{task}</h1>
+            <button onClick={() => deleteTask(task)}>X</button>
+          </div>
+        );
       })}
     </div>
 

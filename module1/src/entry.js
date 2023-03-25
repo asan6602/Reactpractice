@@ -1,3 +1,6 @@
 export const entry = (task) => {
-    return <h2>{task}</h2>
+    return <div>
+        <h2>{task}</h2>
+
+        </div>
 }
