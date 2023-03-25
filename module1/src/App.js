@@ -2,8 +2,6 @@ import './App.css';
 import {useState} from "react";
 import { Task } from './Task';
 
-
-
 function App() {
   const [toDoList, setList] = useState([]);
   const[newTask, setNewTask] = useState({});
@@ -72,6 +70,4 @@ function App() {
   </div>
   );
 }
-
-
 export default App;
