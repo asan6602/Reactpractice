@@ -1,10 +1,22 @@
-
 import './App.css';
 import {useState} from "react";
 
 
-//component is a javascript function that returns jsx(ui)
 function App() {
+  const planets=  [
+    {name: "Mars", isGasPlanet: false},
+    {name: "Earth", isGasPlanet: false},
+    {name: "Jupiter", isGasPlanet: true},
+    {name: "Venus", isGasPlanet: false},
+    {name: "Neptune", isGasPlanet: true},
+    {name: "Uranus", isGasPlanet: true}
+  ];
+
+  //loop through planets and only display if gasplanet
+  return <div className="App">
+   { planets.map(
+    (planet,key) => !planet.isGasPlanet && <Planet name={planet.name}/>
+  )}
 
   //states are variables that react knows when they are modified
   const [age, setAge] = useState(1)
@@ -46,8 +58,8 @@ function App() {
       <h1>{count}</h1>
       
     </div>
-
   );
+
 }
 
 export default App;
