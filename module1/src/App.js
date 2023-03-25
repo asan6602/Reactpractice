@@ -20,6 +20,8 @@ function App() {
   }
 
   const[showText,  setshowText] = useState(true) 
+  const[textColor,  setTextColor] = useState("black") 
+
 
   
 
@@ -33,8 +35,9 @@ function App() {
       <input type ="text" onChange={putText}></input>
 
       
-      {showText === true && <h1>Hi My Name is Aaron</h1>}
-      <button onClick={() => {showText === true ? setshowText(false) : setshowText(true)}}> Show/Hide</button>
+      {showText === true && <h1 style ={{color: textColor}}>Hi My Name is Aaron</h1>}
+      <button onClick={() => {setshowText(!showText)}}>Show/Hide</button>
+      <button onClick={() => {setTextColor(textColor==="black"?"red":"black")}}>Change Color</button>
 
     </div>
 
