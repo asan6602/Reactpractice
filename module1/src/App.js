@@ -45,8 +45,8 @@ function App() {
     <div className="list">
       {toDoList.map((task) =>{
         return (
-          <div>
-            <h1>{task.taskName}</h1>
+          <div className ="task">
+            <h1>{task.id} {task.taskName}</h1>
             <button onClick={() => deleteTask(task.id)}>X</button>
           </div>
         );
