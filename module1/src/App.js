@@ -1,9 +1,16 @@
 
 import './App.css';
+import {useEffect} from "react";
+
+//useEffect controls what happens during which stage of the lifecycle
 
 
-//component is a javascript function that returns jsx(ui)
 function App() {
+  
+  //called everyime there is a state change
+  useEffect(() => {
+    console.log("Component Mounted")
+  })
 
   return (
     <div className="App">
