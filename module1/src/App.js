@@ -12,7 +12,8 @@ function App() {
     //... array composesed of everything in first plus second entry
     const task = {
       id: toDoList.length === 0 ? 1 : toDoList[toDoList.length -1].id + 1,
-      taskName: newTask
+      taskName: newTask,
+      completed: false
     }
     const newToDoList = [...toDoList, task]
     setList(newToDoList)
@@ -35,7 +36,21 @@ function App() {
     setList(newToDoList)
   }
 
-  //loop through planets and only display if gasplanet
+  const compeleteTask = (id) => {
+    setList(
+      toDoList.map((task) => {
+        if(task.id === id) {
+          return {...task, completed : true}
+        }
+        else {
+          return task;
+        }
+      })  
+    )
+  }
+
+
+  //line 48, functions can be passed as props
   return (
   <div className="App">
     <div className="addTask">
@@ -45,7 +60,11 @@ function App() {
     <div className="list">
       {toDoList.map((task) =>{
         return (
-          <Task taskName={task.taskName} id={task.id} deleteTask={deleteTask}/>
+          <Task taskName={task.taskName} 
+          id={task.id} 
+          completed={task.completed} 
+          deleteTask={deleteTask}
+          completeTask={compeleteTask}/>
         );
       })}
     </div>
