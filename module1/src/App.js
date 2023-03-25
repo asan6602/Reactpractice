@@ -6,11 +6,15 @@ import {useState} from "react";
 
 function App() {
   const [toDoList, setList] = useState([]);
-  const[newTask, setNewTask] = useState("");
+  const[newTask, setNewTask] = useState({});
 
   const addtoList = () => {
     //... array composesed of everything in first plus second entry
-    const newToDoList = [...toDoList, newTask]
+    const task = {
+      id: toDoList.length === 0 ? 1 : toDoList[toDoList.length -1].id + 1,
+      taskName: newTask
+    }
+    const newToDoList = [...toDoList, task]
     setList(newToDoList)
   };
 
@@ -18,10 +22,11 @@ function App() {
     setNewTask(event.target.value)
   };
 
-  const deleteTask = (taskName) => {
+  const deleteTask = (id) => {
     const newToDoList = toDoList.filter((task) => {
-      if (task === taskName) {
+      if (task.id === id) {
         return false
+
       }
       else {
         return true
@@ -41,8 +46,8 @@ function App() {
       {toDoList.map((task) =>{
         return (
           <div>
-            <h1>{task}</h1>
-            <button onClick={() => deleteTask(task)}>X</button>
+            <h1>{task.taskName}</h1>
+            <button onClick={() => deleteTask(task.id)}>X</button>
           </div>
         );
       })}
