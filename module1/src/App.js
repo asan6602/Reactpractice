@@ -17,11 +17,11 @@ function App() {
   }, []);
 
   const [name, setName] = useState("");
-  const [predictedAge, setPredictedAge] = useState(0);
+  const [predictedAge, setPredictedAge] = useState(null);
   const fetchData = () => {
     //` backticks
     Axios.get(`https://api.agify.io/?name=${name}`).then((res1) => {
-      setPredictedAge(res1.data.age)
+      setPredictedAge(res1.data)
     });
   }; 
 
@@ -35,10 +35,14 @@ function App() {
           <input placeholder='enter a name' onChange={(event) => {setName(event.target.value)}}></input>
           <br></br>
           <button onClick={fetchData}>Predict Age</button>
-          <h1>Predicted Age: {predictedAge}</h1>
+          <h1>Name: {predictedAge?.name}</h1>
+          <h1>Predicted Age: {predictedAge?.age}</h1>
+          <h1>Count: {predictedAge?.count}</h1>
         </div>
     </div>
   );
 }
+
+//? only try to access if not null
 
 export default App;
