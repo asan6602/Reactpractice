@@ -1,26 +1,24 @@
 
 import './App.css';
-import {useEffect} from "react";
-
-//useEffect controls what happens during which stage of the lifecycle
-
+import Axios from "axios";
+import {useState, useEffect} from "react";
 
 function App() {
-  
-  //called everyime there is a state change
+  const [catFact, setCatFact] = useState("");
+
   useEffect(() => {
-    console.log("Component Mounted")
-  })
+    //library to fetch data
+    Axios.get("https://catfact.ninja/fact").then((res) => {
+      setCatFact(res.data.fact);
+    });
+  }, []);
 
   return (
     <div className="App">
-
+        <button>Cat Fact</button>
+        <p>{catFact}</p>
     </div>
   );
 }
 
 export default App;
-
-//mounting: comoponent appearing
-//updating: component is changing
-//unmounting: component not appearing
