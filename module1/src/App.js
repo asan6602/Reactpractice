@@ -1,73 +1,67 @@
 import './App.css';
-import {useState} from "react";
-import { Task } from './Task';
+import Axios from "axios";
+import {useState, useEffect} from "react";
 
 function App() {
-  const [toDoList, setList] = useState([]);
-  const[newTask, setNewTask] = useState({});
+  const [catFact, setCatFact] = useState("");
 
-  const addtoList = () => {
-    //... array composesed of everything in first plus second entry
-    const task = {
-      id: toDoList.length === 0 ? 1 : toDoList[toDoList.length -1].id + 1,
-      taskName: newTask,
-      completed: false
-    }
-    const newToDoList = [...toDoList, task]
-    setList(newToDoList)
-  };
-
-  const handleChange = (event) => {
-    setNewTask(event.target.value)
-  };
-
-  const deleteTask = (id) => {
-    const newToDoList = toDoList.filter((task) => {
-      if (task.id === id) {
-        return false
-
-      }
-      else {
-        return true
-      }
-    })
-    setList(newToDoList)
+  const fetchCatFact = () => {
+    Axios.get("https://catfact.ninja/fact").then((res) => {
+      setCatFact(res.data.fact);
+    });
   }
-
-  const compeleteTask = (id) => {
-    setList(
-      toDoList.map((task) => {
-        if(task.id === id) {
-          return {...task, completed : true}
-        }
-        else {
-          return task;
-        }
-      })  
-    )
-  }
+  useEffect(() => {
+    //library to fetch data
+    fetchCatFact()
+  }, []);
 
 
-  //line 48, functions can be passed as props
+  const [name, setName] = useState("");
+  const [predictedAge, setPredictedAge] = useState(null);
+  const fetchData = () => {
+    //` backticks
+    Axios.get(`https://api.agify.io/?name=${name}`).then((res1) => {
+      setPredictedAge(res1.data)
+    });
+  }; 
+
+  const [excuse, setExcuse] = useState(null);
+  const fetchExcuse = (setting) => {
+    Axios.get(`https://excuser-three.vercel.app/v1/excuse/${setting}`).then((res2) => {
+      setExcuse(res2.data[0])
+    });
+  } 
+
   return (
-  <div className="App">
-    <div className="addTask">
-      <input onChange={handleChange}></input>
-      <button onClick={addtoList}>Add Task</button>
-    </div>
-    <div className="list">
-      {toDoList.map((task) =>{
-        return (
-          <Task taskName={task.taskName} 
-          id={task.id} 
-          completed={task.completed} 
-          deleteTask={deleteTask}
-          completeTask={compeleteTask}/>
-        );
-      })}
-    </div>
+    <div className="App">
+        <button onClick={fetchCatFact}>Cat Fact</button>
+        <p>{catFact}</p>
 
-  </div>
+        <hr></hr>
+
+        <div>
+          <br></br>
+          <input placeholder='enter a name' onChange={(event) => {setName(event.target.value)}}></input>
+          <button onClick={fetchData}>Predict Age</button>
+          <h1>Name: {predictedAge?.name}</h1>
+          <h1>Predicted Age: {predictedAge?.age}</h1>
+          <h1>Count: {predictedAge?.count}</h1>
+        </div>
+
+        <hr></hr>
+
+        <div>
+          <h1>Generate An Excuse</h1>
+          <button onClick={() => fetchExcuse("party")}>Party</button>
+          <button onClick={() => fetchExcuse("family")}>Family</button>
+          <button onClick={() => fetchExcuse("office")}>Office</button>
+          <h1>Type: {excuse?.category}</h1>
+          <h1>Predicted Age: {excuse?.excuse}</h1>
+
+        </div>
+    </div>
   );
 }
+
+//? only try to access if not null
 export default App;
